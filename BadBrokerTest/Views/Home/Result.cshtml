@@ -1,0 +1,77 @@
+﻿@model IEnumerable<BadBrokerTest.Models.Rate>
+
+@{
+    ViewBag.Title = "Result";
+}
+<h4>Rates</h4>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RubRate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EurRate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GbpRate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JpyRate)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RubRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EurRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GbpRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JpyRate)
+            </td>
+        </tr>
+    }
+</table>
+<h4>Best Result</h4>
+<table class="table">
+    <tr>
+        <th>
+            Currency
+        </th>
+        <th>
+            Buy Date
+        </th>
+        <th>
+            Sell Date
+        </th>
+        <th>
+            Revenue, USD
+        </th>
+    </tr>
+    <tr>
+        <td>
+            @ViewBag.Result.Currency
+        </td>
+        <td>
+            @ViewBag.Result.BuyDate.ToString("d")
+        </td>
+        <td>
+            @ViewBag.Result.SellDate.ToString("d")
+        </td>
+        <td>
+            @ViewBag.Result.Revenue.ToString("N2")
+        </td>
+    </tr>
+</table>
