@@ -16,7 +16,15 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryajax")
     @Scripts.Render("~/bundles/bootstrap")
+    <script>
+    $(document).ready(function() {
+        $("#btnSubmit").click(function() {
+            $("#results").text("Loading...");
+        });
+    });
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

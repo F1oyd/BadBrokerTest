@@ -14,11 +14,11 @@ namespace BadBrokerTest.Controllers
         [HttpPost]
         public ActionResult Result(Input input)
         {
-            if (!ModelState.IsValid) return View("Index");
+            if (!ModelState.IsValid) return PartialView("Error");
 
             var rateList = RatesLogic.GetRates(input.DateFrom, input.DateTill);
             ViewBag.Result = CalcLogic.FindBestOrders(rateList, input.Amount);
-            return View(rateList);
+            return PartialView(rateList);
         }
     }
 }
