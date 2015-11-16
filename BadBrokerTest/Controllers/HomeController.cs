@@ -6,6 +6,7 @@ namespace BadBrokerTest.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly RateContext _db = new RateContext();
         public ActionResult Index()
         {
             return View();
@@ -16,7 +17,7 @@ namespace BadBrokerTest.Controllers
         {
             if (!ModelState.IsValid) return PartialView("Error");
 
-            var rateList = RatesLogic.GetRates(input.DateFrom, input.DateTill);
+            var rateList = RatesLogic.GetRates(input.DateFrom, input.DateTill, _db);
             ViewBag.Result = CalcLogic.FindBestOrders(rateList, input.Amount);
             return PartialView(rateList);
         }

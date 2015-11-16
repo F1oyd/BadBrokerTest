@@ -7,29 +7,30 @@ namespace BadBrokerTest.Logic
 {
     public static class RatesLogic
     {
-        public static List<Rate> GetRates(DateTime dateFrom, DateTime dateTill)
+        public static List<Rate> GetRates(DateTime dateFrom, DateTime dateTill, RateContext db)
         {
-            var db = new RateContext();
-            var localRates = db.Rates.Where(w => w.Date >= dateFrom && w.Date <= dateTill).ToList();
+            var localRates = db.Rates.Where(w => w.Date >= dateFrom && w.Date <= dateTill);
             for (var date = dateFrom; date <= dateTill; date = date.AddDays(1))
             {
-                if (localRates.Select(s => s.Date).Contains(date)) continue;
+                if (localRates.Any(s => s.Date.Equals(date))) continue;
 
                 var externalRates = FixerGrabber.GetRates(date);
                 if (!externalRates.Date.Equals(date)) continue;
 
-                localRates.Add(new Rate
+                var rate = new Rate
                 {
                     Date = externalRates.Date,
                     RubRate = externalRates.Rates["RUB"],
                     EurRate = externalRates.Rates["EUR"],
                     GbpRate = externalRates.Rates["GBP"],
                     JpyRate = externalRates.Rates["JPY"]
-                });
+                };
+
+                db.Entry(rate).State = System.Data.EntityState.Added;
             }
             db.SaveChanges();
 
-            return localRates;
+            return localRates.ToList();
         }
     }
 }
