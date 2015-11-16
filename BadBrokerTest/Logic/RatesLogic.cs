@@ -15,7 +15,7 @@ namespace BadBrokerTest.Logic
                 if (localRates.Any(s => s.Date.Equals(date))) continue;
 
                 var externalRates = FixerGrabber.GetRates(date);
-                if (!externalRates.Date.Equals(date)) continue;
+                if (externalRates == null) continue;
 
                 var rate = new Rate
                 {

@@ -15,7 +15,8 @@ namespace BadBrokerTest.Logic
             var client = new WebClient { Proxy = { Credentials = CredentialCache.DefaultCredentials } };
             var jsonString = client.DownloadString(
                 string.Format("http://api.fixer.io/{0:yyyy-MM-dd}?base=USD&symbols=RUB,EUR,GBP,JPY", date));
-            return JsonConvert.DeserializeObject<ExternalRate>(jsonString);
+            var externalRate = JsonConvert.DeserializeObject<ExternalRate>(jsonString);
+            return externalRate.Date.Equals(date) ? externalRate : null;
         }
     }
 }
