@@ -15,6 +15,7 @@ namespace BadBrokerTest.Models
         public DateTime DateTill { get; set; }
         [Display(Name = "Amount, USD")]
         [Required]
+        [Range(0.01d,double.MaxValue)]
         [DataType(DataType.Currency)]
         public double Amount { get; set; }
     }

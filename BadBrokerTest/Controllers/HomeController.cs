@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using BadBrokerTest.Logic;
 using BadBrokerTest.Models;
 
@@ -15,10 +17,16 @@ namespace BadBrokerTest.Controllers
         [HttpPost]
         public ActionResult Result(Input input)
         {
-            if (!ModelState.IsValid) return PartialView("Error");
-
-            var rateList = RatesLogic.GetRates(input.DateFrom, input.DateTill, _db);
-            ViewBag.Result = CalcLogic.FindBestOrders(rateList, input.Amount);
+            List<Rate> rateList;
+            try
+            {
+                rateList = RatesLogic.GetRates(input.DateFrom, input.DateTill, _db);
+                ViewBag.Result = CalcLogic.FindBestOrders(rateList, input.Amount);
+            }
+            catch (Exception ex)
+            {
+                return PartialView("Error", ex.Message);
+            }
             return PartialView(rateList);
         }
     }
