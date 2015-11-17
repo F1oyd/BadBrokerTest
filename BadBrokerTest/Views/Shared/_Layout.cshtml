@@ -27,6 +27,28 @@
                 }
             });
         });
+        $.validator.addMethod("dategreaterthan", function (value, element, params) {
+            return Date.parse(value) > Date.parse($(params).val()) && (Date.parse(value) - Date.parse($(params).val()))/(3600000*24) <= 61;
+        });
+        $.validator.unobtrusive.adapters.add("dategreaterthan", ["otherpropertyname"], function (options) {
+            options.rules["dategreaterthan"] = "#" + options.params.otherpropertyname;
+            options.messages["dategreaterthan"] = options.message;
+        });
+        $.validator.addMethod("datelesserthan", function (value, element, params) {
+            return Date.parse(value) < Date.parse($(params).val()) && (Date.parse($(params).val()) - Date.parse(value)) / (3600000 * 24) <= 61;
+        });
+        $.validator.unobtrusive.adapters.add("datelesserthan", ["otherpropertyname"], function (options) {
+            options.rules["datelesserthan"] = "#" + options.params.otherpropertyname;
+            options.messages["datelesserthan"] = options.message;
+        });
+        $.validator.addMethod('validateage', function (value, element, params) {
+            return Date.parse(value) >= Date.parse(params.minumumdate) && Date.parse(value) <= Date.parse(params.maximumdate);
+        });
+        $.validator.unobtrusive.adapters.add('validateage', ['minumumdate', 'maximumdate'], function(options) {
+            var params = {minumumdate: options.params.minumumdate,maximumdate: options.params.maximumdate};
+            options.rules['validateage'] = params;
+            options.messages['validateage'] = options.message;
+        });
     </script>
     @RenderSection("scripts", required: false)
 </body>
