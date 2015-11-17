@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace BadBrokerTest.Models
@@ -27,6 +26,7 @@ namespace BadBrokerTest.Models
         public double Amount { get; set; }
     }
 
+    //This solution I got from StackOverFlow.com. Now it looks like a Workaround, but can be more elegant.
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public class DateGreaterThanAttribute : ValidationAttribute, IClientValidatable
     {
