@@ -16,7 +16,7 @@ namespace BadBrokerTest.Logic
             var jsonString = client.DownloadString(
                 string.Format("http://api.fixer.io/{0:yyyy-MM-dd}?base=USD&symbols=RUB,EUR,GBP,JPY", date));
             var externalRate = JsonConvert.DeserializeObject<ExternalRate>(jsonString);
-            return externalRate.Date.Equals(date) ? externalRate : null;
+            return /*externalRate.Date.Equals(date) ? */externalRate;// : null;
         }
     }
 }

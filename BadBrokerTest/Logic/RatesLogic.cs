@@ -19,7 +19,7 @@ namespace BadBrokerTest.Logic
 
                 var rate = new Rate
                 {
-                    Date = externalRates.Date,
+                    Date = date,//externalRates.Date,
                     RubRate = externalRates.Rates["RUB"],
                     EurRate = externalRates.Rates["EUR"],
                     GbpRate = externalRates.Rates["GBP"],
